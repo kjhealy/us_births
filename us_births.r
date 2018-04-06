@@ -193,3 +193,40 @@ dev.off()
 pdf("figures/births_monthly_tile.pdf", width = 12, height = 2.5)
 print(p_tile)
 dev.off()
+
+
+### Plot of population size
+pop$AK <- stringr::str_replace(pop$AK, "N/A", "NA")
+pop$HI <- stringr::str_replace(pop$HI, "N/A", "NA")
+pop$AK <- as.integer(pop$AK)
+pop$HI <- as.integer(pop$HI)
+
+
+pop_lon <- pop %>% select(-US, -US_SUM) %>%
+    gather(state, pop, AK:WY)
+
+curr_pop <- pop_lon %>% filter(Year == 2017)
+o <- order(curr_pop$pop)
+
+p <- ggplot(pop_lon, aes(x = factor(Year),
+                         y = factor(state, levels = curr_pop$state[o], ordered = TRUE)))
+
+p_tile <- p + geom_tile(aes(fill = pop), color = "white") + labs(x = "", y = "") +
+    scale_x_discrete(breaks = seq(1920, 2015, 5)) +
+    scale_fill_viridis(option = "inferno", trans = "log",
+                       labels = c("100k", "250k", "1m", "5m", "20m"),
+                       breaks = c(1e5, 2.5e5, 1e6, 5e6, 20e6)) +
+    guides(fill = guide_legend(title.position = "top",
+                             label.position = "bottom",
+                             keywidth = 2,
+                             nrow = 1)) +
+    theme(legend.position = "top", legend.justification = "left",
+          plot.caption = element_text(size = 6)) +
+    labs(x = "Year", fill = "Population", title = "US State Populations, 1917-2017",
+         subtitle = "States ordered from highest to lowest current population",
+         caption = "Kieran Healy (kieranhealy.org). Data: US Census Bureau.")
+
+
+pdf("figures/pop_all.pdf", width = 14, height = 9)
+print(p_tile)
+dev.off()
