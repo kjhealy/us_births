@@ -53,8 +53,8 @@ draw_stl <- function(data_stl = data,
     p1 <- p + geom_line(color = p_col) + ylab("Data") + xlab("") +
         scale_x_date(breaks = break_vec) +
         theme(axis.text.x = element_blank(),
-        axis.title.y = element_text(size = rel(0.8)), plot.title = element_text(size = rel(1))) +
-        ggtitle("US Births per month per million people")
+        axis.title.y = element_text(size = rel(0.8)), plot.title = element_text(size = rel(1))) #+
+#        ggtitle("US Births per month per million people")
 
     p <- ggplot(data_stl, aes(x = date, y = trend))
     p2 <- p + geom_line(color = p_col) + ylab("Trend") + xlab("") +
@@ -71,7 +71,7 @@ draw_stl <- function(data_stl = data,
     p <- ggplot(data_stl, aes(x = date, ymax = remainder, ymin = 0))
     p4 <- p + geom_linerange(size = bar.width, color = p_col) +
         scale_x_date(breaks = break_vec, date_labels = "%Y") +
-        ylab("Remainder") + xlab("Date") +
+        ylab("Remainder") + xlab("Year") +
         theme(axis.title.y = element_text(size = rel(0.8)))
 
     g1 <- ggplotGrob(p1)
@@ -159,7 +159,7 @@ print(p_line)
 dev.off()
 
 ## Time series decomposition plot
-pdf("figures/births_monthly_stl.pdf", width = 12, height = 6)
+pdf("figures/births_monthly_stl.pdf", width = 12, height = 5)
 out <- draw_stl(bar.width = 0.5)
 grid.draw(out)
 dev.off()
