@@ -230,3 +230,25 @@ p_tile <- p + geom_tile(aes(fill = pop), color = "white") + labs(x = "", y = "")
 pdf("figures/pop_all.pdf", width = 14, height = 9)
 print(p_tile)
 dev.off()
+
+
+
+### Example of categorical variable for @surlyurbanist
+
+## Cut population into 4 categories
+pop_lon$pop_cat <- cut_interval(pop_lon$pop / 1000, 4, labels = c("1", "2", "3", "4"))
+
+table(pop_lon$pop_cat)
+
+p <- ggplot(pop_lon, aes(x = factor(Year),
+                         y = factor(state, levels = curr_pop$state[o], ordered = TRUE)))
+
+p_cat <- p + geom_tile(aes(fill = pop_cat), color = "white") + labs(x = "", y = "") +
+    scale_x_discrete(breaks = seq(1920, 2015, 5)) +
+    guides(fill = guide_legend(title.position = "top",
+                             label.position = "bottom",
+                             keywidth = 2,
+                             nrow = 1)) +
+    theme(legend.position = "top", legend.justification = "left",
+          plot.caption = element_text(size = 6)) +
+    labs(x = "Year", fill = "Population", title = "Categorical Var. example")
