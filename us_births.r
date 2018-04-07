@@ -195,6 +195,38 @@ print(p_tile)
 dev.off()
 
 
+
+## Tiled monthly plot - vertical
+p <- ggplot(data,
+            aes(x = factor(month,
+                           levels = c(1:12),
+                           labels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),
+                           ordered = TRUE),
+                y = factor(year, levels = c(2015:1933), ordered = TRUE)))
+p_tile <- p + geom_tile(aes(fill = births_pct_day), color = "white") + labs(x = "", y = "") +
+    scale_y_discrete(breaks = seq(1935, 2015, 5)) +
+    scale_x_discrete(position = "top") +
+    scale_fill_viridis(option = "inferno") +
+    theme(legend.position = "top",
+          plot.title = element_text(size = rel(0.8)),
+          plot.subtitle = element_text(size = rel(0.6)),
+          plot.caption = element_text(size = rel(0.4)),
+          axis.text.y = element_text(size = rel(1)),
+          axis.text.x = element_text(size = rel(0.7))) +
+    labs(x = "", fill = "", title = "US Monthly Birth Rate 1933-2015",
+         subtitle = "Average births per day per million people.",
+         caption = "Kieran Healy (kieranhealy.org). Data: Human Mortality Database;\nUS Census Bureau; Aaron Penne (github.com/aaronpenne).")
+
+
+png("figures/births_monthly_tile_vert.png", height = 1800, width = 320, res = 100)
+print(p_tile)
+dev.off()
+
+pdf("figures/births_monthly_tile_vert.pdf", height = 16, width = 3)
+print(p_tile)
+dev.off()
+
+
 ### Plot of population size
 pop$AK <- stringr::str_replace(pop$AK, "N/A", "NA")
 pop$HI <- stringr::str_replace(pop$HI, "N/A", "NA")
