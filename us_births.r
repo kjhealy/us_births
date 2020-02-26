@@ -162,7 +162,7 @@ break_labs <- stringr::str_remove(break_vec, "-01-01")
 p_trends <- ggplot(data_lon, aes(x = date, y = value)) + 
     geom_line(color = "gray20") + 
     scale_x_date(breaks = break_vec, labels = break_labs, expand = c(0,0)) + 
-    facet_col(~ name, space = "free", scales = "free") + 
+    facet_col(~ name, space = "free", scales = "free_y") + 
     labs(y = NULL, x = NULL) + 
     theme(  strip.background = element_blank(),
             strip.text.x = element_blank()) + 
