@@ -2,8 +2,6 @@
 
 ## @kjhealy
 
-Redrawing some of [Aaron Penne's](http://github.com/aaronpenne/data_visualization) very nice Python-based visualizations using R and ggplot2.
+Redrawing some of [Aaron Penne's](http://github.com/aaronpenne/data_visualization) very nice Python-based visualizations using R and ggplot2, along with some post-production in Illustrator.
 
-![Tiled monthly birth rates](figures/births_monthly_tile.png)
-
-![LOESS decomposition](figures/births_monthly_stl.png)
+![OK Boomer](figures/okboomer_composite_poster-300-01.png "OK Boomer")
