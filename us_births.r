@@ -176,16 +176,14 @@ p <- ggplot(data,
 p_tile <- p + geom_tile(aes(fill = births_pct_day), color = "white") +
     scale_x_discrete(breaks = break_labs, labels = break_labs, position = "top") +
     scale_fill_viridis(option = "inferno") +
-    labs(y = NULL, x = NULL) + 
+    labs(y = NULL, x = NULL, fill = "Average Daily Births per Million Population") + 
     theme(legend.position = "top",
           legend.justification = "left",
           strip.text = element_text(size = 12, face = "bold"),
           plot.title = element_text(face = "bold", size = rel(2)),
-          plot.caption = element_text(size = 6), 
-          )
+          plot.caption = element_text(size = 6)) 
 
-out <- (p_tile / p_trends) + plot_layout(heights = c(30, 70)) + 
-    labs(x = "Year")
+out <- (p_tile / p_trends) + plot_layout(heights = c(30, 70)) 
 
 ggsave("figures/okboomer_composite.pdf", plot = out, width = 18, height = 12)
 
